@@ -1,0 +1,7 @@
+name = Plug formatter
+description = "Plugin manager for Drupal 7 Field formatters"
+core = 7.x
+package = Plug
+
+dependencies[] = field
+dependencies[] = plug
