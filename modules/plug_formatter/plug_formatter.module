@@ -4,11 +4,13 @@
  * Module implementation File.
  */
 
+use \Drupal\plug_formatter\PlugFormatterManager;
+
 /**
  * Implements hook_field_formatter_info().
  */
 function plug_formatter_field_formatter_info() {
-  $formatter_manager = \Drupal\plug_formatter\PlugFormatterManager::create();
+  $formatter_manager = PlugFormatterManager::create();
   $plugins = $formatter_manager->getDefinitions();
   $formatter_info =  array();
 
@@ -25,11 +27,10 @@ function plug_formatter_field_formatter_info() {
  */
 function plug_formatter_field_formatter_settings_form($field, $instance, $view_mode, $form, &$form_state) {
   $display = $instance['display'][$view_mode];
-  $formatter_manager = \Drupal\plug_formatter\PlugFormatterManager::create();
+  $formatter_manager = PlugFormatterManager::create();
   if ($plugin = $formatter_manager->createInstance($display['type'])) {
     return $plugin->settingsForm($field, $instance, $view_mode, $form, $form_state);
   }
-
 }
 
 /**
@@ -39,7 +40,7 @@ function plug_formatter_field_formatter_settings_summary($field, $instance, $vie
   $display = $instance['display'][$view_mode];
   $summary = array();
 
-  $formatter_manager = \Drupal\plug_formatter\PlugFormatterManager::create();
+  $formatter_manager = PlugFormatterManager::create();
   if ($plugin = $formatter_manager->createInstance($display['type'])) {
     $summary =  $plugin->settingsSummary($field, $instance, $view_mode);
   }
@@ -51,7 +52,7 @@ function plug_formatter_field_formatter_settings_summary($field, $instance, $vie
  * Implements hook_field_formatter_view().
  */
 function plug_formatter_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
-  $formatter_manager = \Drupal\plug_formatter\PlugFormatterManager::create();
+  $formatter_manager = PlugFormatterManager::create();
   if ($plugin = $formatter_manager->createInstance($display['type'])) {
     return $plugin->viewElements($entity_type, $entity, $field, $instance, $langcode, $items, $display);
   }

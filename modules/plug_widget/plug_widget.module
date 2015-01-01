@@ -1,0 +1,52 @@
+<?php
+/**
+ * @file
+ * Module implementation File.
+ */
+
+use \Drupal\plug_widget\PlugWidgetManager;
+
+/**
+ * Implements hook_field_widget_info().
+ */
+function plug_widget_field_widget_info() {
+  $widget_manager = PlugWidgetManager::create();
+  $plugins = $widget_manager->getDefinitions();
+  $widget_info =  array();
+
+  foreach ($plugins as $name => $plugin) {
+    $widget_info[$name] = $plugin;
+    $widget_info[$name]['field types'] = $widget_info[$name]['field_types'];
+  }
+
+  return $widget_info;
+}
+
+/**
+ * Implements hook_field_widget_settings_form().
+ */
+function plug_widget_field_widget_settings_form($field, $instance) {
+  $widget = $instance['widget'];
+  $formatter_manager = PlugWidgetManager::create();
+  if ($plugin = $formatter_manager->createInstance($widget['type'])) {
+    return $plugin->settingsForm($field, $instance);
+  }
+}
+
+/**
+ * Implements hook_field_widget_form().
+ */
+function plug_widget_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
+  $widget = $instance['widget'];
+  $formatter_manager = PlugWidgetManager::create();
+  if ($plugin = $formatter_manager->createInstance($widget['type'])) {
+    return $plugin->widgetForm($form, $form_state, $field, $instance, $langcode, $items, $delta, $element);
+  }
+}
+
+/**
+ * Implements hook_field_widget_error().
+ */
+function plug_widget_field_widget_error($element, $error, $form, &$form_state) {
+  form_error($error_element, $error['message']);
+}

@@ -1,0 +1,7 @@
+name = Plug Field example
+description = "Examples for D7 Field API plugins"
+core = 7.x
+package = Plug
+
+dependencies[] = image
+dependencies[] = plug_formatter

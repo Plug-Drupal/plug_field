@@ -1,0 +1,7 @@
+name = Plug Widget
+description = "Plugin manager for Drupal 7 Field widget based on D8 plugins"
+core = 7.x
+package = Plug
+
+dependencies[] = field
+dependencies[] = plug

@@ -39,4 +39,5 @@ class PlugFormatterManager extends DefaultPluginManager {
   public static function create($bin = 'cache') {
     return new static(Module::getNamespaces(), _cache_get_object($bin));
   }
+
 }

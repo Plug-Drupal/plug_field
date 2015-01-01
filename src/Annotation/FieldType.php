@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\plug_formatter\Annotation\FieldFormatter.
+ * Contains \Drupal\plug_formatter\Annotation\FieldType.
  */
 
 namespace Drupal\plug_formatter\Annotation;
@@ -10,13 +10,13 @@ namespace Drupal\plug_formatter\Annotation;
 use Drupal\Component\Annotation\Plugin;
 
 /**
- * Defines a FieldFormatter annotation object.
+ * Defines a FieldType annotation object.
  *
  * @ingroup plug_example_api
  *
  * @Annotation
  */
-class FieldFormatter extends Plugin {
+class FieldType extends Plugin {
 
   /**
    * The formatter type ID.
