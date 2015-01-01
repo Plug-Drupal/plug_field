@@ -7,10 +7,9 @@
 
 namespace Drupal\plug_widget;
 
-use Drupal\Core\Plugin\DefaultPluginManager;
-use Drupal\plug\Util\Module;
+use Drupal\plug_field\PlugFieldManagerBase;
 
-class PlugWidgetManager extends DefaultPluginManager {
+class PlugWidgetManager extends PlugFieldManagerBase {
 
   /**
    * Constructs PlugWidgetManager.
@@ -25,19 +24,6 @@ class PlugWidgetManager extends DefaultPluginManager {
     parent::__construct('Plugin/Field/FieldWidget', $namespaces, 'Drupal\plug_widget\Plugin\Field\FieldWidget\FieldWidgetInterface', '\Drupal\plug_widget\Annotation\FieldWidget');
     $this->setCacheBackend($cache_backend, 'field_widget_plugins');
     $this->alterInfo('field_widget_plugin');
-  }
-
-  /**
-   * PlugWidgetManager factory method.
-   *
-   * @param string $bin
-   *   The cache bin for the plugin manager.
-   *
-   * @return PlugWidgetManager
-   *   The created manager.
-   */
-  public static function create($bin = 'cache') {
-    return new static(Module::getNamespaces(), _cache_get_object($bin));
   }
 
 }

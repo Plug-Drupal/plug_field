@@ -1,0 +1,7 @@
+name = Plug Field
+description = "Plugin manager for Drupal 7 Field types based on D8 plugins"
+core = 7.x
+package = Plug
+
+dependencies[] = field
+dependencies[] = plug

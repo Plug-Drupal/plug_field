@@ -10,16 +10,7 @@ use \Drupal\plug_formatter\PlugFormatterManager;
  * Implements hook_field_formatter_info().
  */
 function plug_formatter_field_formatter_info() {
-  $formatter_manager = PlugFormatterManager::create();
-  $plugins = $formatter_manager->getDefinitions();
-  $formatter_info =  array();
-
-  foreach ($plugins as $name => $plugin) {
-    $formatter_info[$name] = $plugin;
-    $formatter_info[$name]['field types'] = $formatter_info[$name]['field_types'];
-  }
-
-  return $formatter_info;
+  return PlugFormatterManager::create()->getDefinitions();
 }
 
 /**
@@ -27,8 +18,7 @@ function plug_formatter_field_formatter_info() {
  */
 function plug_formatter_field_formatter_settings_form($field, $instance, $view_mode, $form, &$form_state) {
   $display = $instance['display'][$view_mode];
-  $formatter_manager = PlugFormatterManager::create();
-  if ($plugin = $formatter_manager->createInstance($display['type'])) {
+  if ($plugin = PlugFormatterManager::create()->createInstance($display['type'])) {
     return $plugin->settingsForm($field, $instance, $view_mode, $form, $form_state);
   }
 }
@@ -40,9 +30,8 @@ function plug_formatter_field_formatter_settings_summary($field, $instance, $vie
   $display = $instance['display'][$view_mode];
   $summary = array();
 
-  $formatter_manager = PlugFormatterManager::create();
-  if ($plugin = $formatter_manager->createInstance($display['type'])) {
-    $summary =  $plugin->settingsSummary($field, $instance, $view_mode);
+  if ($plugin = PlugFormatterManager::create()->createInstance($display['type'])) {
+    $summary = $plugin->settingsSummary($field, $instance, $view_mode);
   }
 
   return implode('<br />', $summary);
@@ -52,8 +41,7 @@ function plug_formatter_field_formatter_settings_summary($field, $instance, $vie
  * Implements hook_field_formatter_view().
  */
 function plug_formatter_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
-  $formatter_manager = PlugFormatterManager::create();
-  if ($plugin = $formatter_manager->createInstance($display['type'])) {
+  if ($plugin = PlugFormatterManager::create()->createInstance($display['type'])) {
     return $plugin->viewElements($entity_type, $entity, $field, $instance, $langcode, $items, $display);
   }
 
