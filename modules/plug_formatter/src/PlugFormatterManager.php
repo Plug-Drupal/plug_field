@@ -22,7 +22,7 @@ class PlugFormatterManager extends DefaultPluginManager {
    *   Cache backend instance to use.
    */
   public function __construct(\Traversable $namespaces, \DrupalCacheInterface $cache_backend) {
-    parent::__construct('Plugin/Field/FieldFormatter', $namespaces, 'Drupal\plug_formatter\Plugin\FieldFormatter\FieldFormatterInterface', '\Drupal\plug_formatter\Annotation\FieldFormatter');
+    parent::__construct('Plugin/Field/FieldFormatter', $namespaces, 'Drupal\plug_formatter\Plugin\Field\FieldFormatter\FieldFormatterInterface', '\Drupal\plug_formatter\Annotation\FieldFormatter');
     $this->setCacheBackend($cache_backend, 'field_formatter_plugins');
     $this->alterInfo('field_formatter_plugin');
   }

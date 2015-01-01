@@ -1,5 +1,5 @@
-name = Plug formatter
-description = "Plugin manager for Drupal 7 Field formatters"
+name = Plug Formatter
+description = "Plugin manager for Drupal 7 Field formatters based on D8 plugins"
 core = 7.x
 package = Plug
 

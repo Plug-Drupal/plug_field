@@ -2,54 +2,12 @@
 
 /**
  * @file
- * Contains \Drupal\plug_formatter\Plugin\Field\FieldFormatter\PluginFormatterInterface.
+ * Contains \Drupal\plug_formatter\Plugin\Field\FieldFormatter\FieldFormatterInterface.
  */
 
 namespace Drupal\plug_formatter\Plugin\Field\FieldFormatter;
 
-interface PluginFormatterInterface {
-
-  /**
-   * Specifies the formatter name.
-   *
-   * @return string
-   *   The plugin name
-   */
-  function getName();
-
-  /**
-   * Expose Field API formatter types.
-   *
-   * Formatters handle the display of field values. Formatter hooks are typically
-   * called by the Field Attach API field_attach_prepare_view() and
-   * field_attach_view() functions.
-   *
-   * @return
-   *   An array describing the formatter types implemented by the module.
-   *   The keys are formatter type names. To avoid name clashes, formatter type
-   *   names should be prefixed with the name of the module that exposes them.
-   *   The values are arrays describing the formatter type, with the following
-   *   key/value pairs:
-   *   - label: The human-readable name of the formatter type.
-   *   - description: A short description for the formatter type.
-   *   - field types: An array of field types the formatter supports.
-   *   - settings: An array whose keys are the names of the settings available
-   *     for the formatter type, and whose values are the default values for
-   *     those settings.
-   *
-   * @see hook_field_formatter_info_alter()
-   * @see hook_field_formatter_view()
-   * @see hook_field_formatter_prepare_view()
-   */
-  function getInfo();
-
-  /**
-   * Specifies the module that provides the defined formatter.
-   *
-   * @return string
-   *   The formatter dependency
-   */
-  function getDependency();
+interface FieldFormatterInterface {
 
   /**
    * Specify the form elements for a formatter's settings.

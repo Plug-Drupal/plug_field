@@ -2,12 +2,12 @@
 
 /**
  * @file
- * Contains \Drupal\plug_formatter\Plugin\Field\FieldFormatter\PluginFormatterBase.
+ * Contains \Drupal\plug_formatter\Plugin\Field\FieldFormatter\FieldFormatterBase.
  */
 
 namespace Drupal\plug_formatter\Plugin\Field\FieldFormatter;
 
-abstract class PluginFormatterBase implements PluginFormatterInterface {
+abstract class FieldFormatterBase implements FieldFormatterInterface {
 
   /**
    * {@inheritdoc}
