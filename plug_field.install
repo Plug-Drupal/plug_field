@@ -1,0 +1,16 @@
+<?php
+
+/**
+ * @file
+ * Install hooks implementation.
+ */
+
+use \Drupal\plug_field\PlugFieldTypeManager;
+
+/**
+ * Implements hook_field_schema().
+ */
+function plug_field_field_schema($field) {
+  $plugin_manager = PlugFieldTypeManager::create();
+  return $plugin_manager->createInstance($field['field_type'])->schema();
+}
