@@ -2,17 +2,17 @@
 
 /**
  * @file
- * Contains \Drupal\plug_formatter\PlugFormatterManager.
+ * Contains \Drupal\plug_formatter\PlugFieldFormatterManager.
  */
 
 namespace Drupal\plug_formatter;
 
 use Drupal\plug_field\PlugFieldManagerBase;
 
-class PlugFormatterManager extends PlugFieldManagerBase {
+class PlugFieldFormatterManager extends PlugFieldManagerBase {
 
   /**
-   * Constructs PlugFormatterManager.
+   * Constructs PlugFieldFormatterManager.
    *
    * @param \Traversable $namespaces
    *   An object that implements \Traversable which contains the root paths

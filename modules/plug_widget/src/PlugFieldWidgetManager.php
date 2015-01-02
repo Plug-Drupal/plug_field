@@ -2,17 +2,17 @@
 
 /**
  * @file
- * Contains \Drupal\plug_widget\PlugWidgetManager.
+ * Contains \Drupal\plug_widget\PlugFieldWidgetManager.
  */
 
 namespace Drupal\plug_widget;
 
 use Drupal\plug_field\PlugFieldManagerBase;
 
-class PlugWidgetManager extends PlugFieldManagerBase {
+class PlugFieldWidgetManager extends PlugFieldManagerBase {
 
   /**
-   * Constructs PlugWidgetManager.
+   * Constructs PlugFieldWidgetManager.
    *
    * @param \Traversable $namespaces
    *   An object that implements \Traversable which contains the root paths
