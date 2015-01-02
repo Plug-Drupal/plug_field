@@ -12,6 +12,6 @@ abstract class FieldWidgetBase implements FieldWidgetInterface {
   /**
    * {@inheritdoc}
    */
-  function settingsForm($field, $instance) { }
+  public function settingsForm($field, $instance) { }
 
 }

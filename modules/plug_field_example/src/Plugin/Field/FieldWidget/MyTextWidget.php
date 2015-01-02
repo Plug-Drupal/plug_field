@@ -27,7 +27,7 @@ class MyTextWidget extends FieldWidgetBase {
   /**
    * {@inheritdoc}
    */
-  function settingsForm($field, $instance) {
+  public function settingsForm($field, $instance) {
     $settings = $instance['widget']['settings'];
 
     $form['size'] = array(
@@ -44,7 +44,7 @@ class MyTextWidget extends FieldWidgetBase {
   /**
    * {@inheritdoc}
    */
-  function widgetForm(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
+  public function widgetForm(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
      $element += array(
       '#type' => 'textfield',
       '#default_value' => isset($items[$delta]['value']) ? $items[$delta]['value'] : NULL,

@@ -28,7 +28,7 @@ class ImageTitleFormatter extends FieldFormatterBase {
   /**
    * {@inheritdoc}
    */
-  function settingsForm($field, $instance, $view_mode, $form, &$form_state) {
+  public function settingsForm($field, $instance, $view_mode, $form, &$form_state) {
     $display = $instance['display'][$view_mode];
     $settings = $display['settings'];
 
@@ -58,7 +58,7 @@ class ImageTitleFormatter extends FieldFormatterBase {
   /**
    * {@inheritdoc}
    */
-  function settingsSummary($field, $instance, $view_mode) {
+  public function settingsSummary($field, $instance, $view_mode) {
     $display = $instance['display'][$view_mode];
     $settings = $display['settings'];
 
@@ -89,7 +89,7 @@ class ImageTitleFormatter extends FieldFormatterBase {
   /**
    * {@inheritdoc}
    */
-  function viewElements($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  public function viewElements($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
     $element = array();
     // Check if the formatter involves a link.
     if ($display['settings']['image_link'] == 'content') {

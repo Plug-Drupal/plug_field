@@ -26,7 +26,7 @@ interface FieldFormatterInterface {
    * @return
    *   The form elements for the formatter settings.
    */
-  function settingsForm($field, $instance, $view_mode, $form, &$form_state);
+  public function settingsForm($field, $instance, $view_mode, $form, &$form_state);
 
   /**
    * Return a short summary for the current formatter settings of an instance.
@@ -45,7 +45,7 @@ interface FieldFormatterInterface {
    * @return
    *   A string containing a short summary of the formatter settings.
    */
-  function settingsSummary($field, $instance, $view_mode);
+  public function settingsSummary($field, $instance, $view_mode);
 
   /**
    * Build a renderable array for a field value.
@@ -72,6 +72,6 @@ interface FieldFormatterInterface {
    *   A renderable array for the $items, as an array of child elements keyed
    *   by numeric indexes starting from 0.
    */
-  function viewElements($entity_type, $entity, $field, $instance, $langcode, $items, $display);
+  public function viewElements($entity_type, $entity, $field, $instance, $langcode, $items, $display);
 
 }

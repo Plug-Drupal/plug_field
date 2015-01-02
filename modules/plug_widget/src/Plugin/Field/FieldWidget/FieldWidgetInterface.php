@@ -87,7 +87,7 @@ interface FieldWidgetInterface {
    * @see hook_field_widget_form_alter()
    * @see hook_field_widget_WIDGET_TYPE_form_alter()
    */
-  function widgetForm(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element);
+  public function widgetForm(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element);
 
   /**
    * Add settings to a widget settings form.
@@ -103,6 +103,6 @@ interface FieldWidgetInterface {
    * @return
    *   The form definition for the widget settings.
    */
-  function settingsForm($field, $instance);
+  public function settingsForm($field, $instance);
 
 }
