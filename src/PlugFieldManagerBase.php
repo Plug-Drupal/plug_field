@@ -26,6 +26,23 @@ abstract class PlugFieldManagerBase extends DefaultPluginManager {
   }
 
   /**
+   * PlugFieldManagerBase pseudo service.
+   *
+   * @param string $bin
+   *   The cache bin for the plugin manager.
+   *
+   * @return \Drupal\Component\Plugin\PluginManagerInterface
+   *   The created manager.
+   */
+  public static function get($bin = 'cache') {
+    $manager = &drupal_static(get_called_class() . __FUNCTION__);
+    if (!isset($manager)) {
+      $manager = static::create($bin);
+    }
+    return $manager;
+  }
+
+  /**
    * {@inheritdoc}
    */
   protected function findDefinitions() {
