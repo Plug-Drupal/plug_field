@@ -12,11 +12,6 @@ abstract class FieldTypeBase implements FieldTypeInterface {
   /**
    * {@inheritdoc}
    */
-  public function schema($field) { }
-
-  /**
-   * {@inheritdoc}
-   */
   public function load($entity_type, $entities, $field, $instances, $langcode, &$items, $age) { }
 
   /**
@@ -58,11 +53,6 @@ abstract class FieldTypeBase implements FieldTypeInterface {
    * {@inheritdoc}
    */
   public function prepareTranslation($entity_type, $entity, $field, $instance, $langcode, &$items, $source_entity, $source_langcode) { }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function isEmpty($item, $field) { }
 
   /**
    * {@inheritdoc}

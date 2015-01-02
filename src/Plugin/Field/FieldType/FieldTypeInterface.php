@@ -5,7 +5,7 @@
  * Contains \Drupal\plug_field\Plugin\Field\FieldType\FieldTypeInterface.
  */
 
-namespace Drupal\plug_field\Plugin\Field\Fieldtype;
+namespace Drupal\plug_field\Plugin\Field\FieldType;
 
 interface FieldTypeInterface {
 

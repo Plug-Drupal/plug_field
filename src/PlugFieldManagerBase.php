@@ -33,8 +33,10 @@ abstract class PlugFieldManagerBase extends DefaultPluginManager {
     // Convert "field_types" key to "field types", given that annotations don't
     // allow spaces.
     foreach ($definitions as &$definition) {
-      $definition['field types'] = $definition['field_types'];
-      unset($definition['field_types']);
+      if (isset($definition['field_types'])) {
+        $definition['field types'] = $definition['field_types'];
+        unset($definition['field_types']);
+      }
     }
     return $definitions;
   }
