@@ -8,7 +8,61 @@
 use \Drupal\plug_field\PlugFieldTypeManager;
 
 /**
- * implements hook_field_info().
+ * Implements hook_system_info_alter().
+ *
+ * Ensures that modules providing field plugins in use can't be disabled.
+ */
+function plug_field_system_info_alter(&$info, $file, $type) {
+  $definitions = PlugFieldTypeManager::get()->getDefinitions();
+
+  foreach ($definitions as $definition) {
+    if ($type == 'module' && $definition['provider'] == $file->name) {
+      $fields = field_read_fields(array('type' => $definition['id']), array('include_deleted' => TRUE));
+      if ($fields) {
+        $info['required'] = TRUE;
+
+        // Provide an explanation message (only mention pending deletions if
+        // there remains no actual, non-deleted fields).
+        $non_deleted = FALSE;
+        foreach ($fields as $field) {
+          if (empty($field['deleted'])) {
+            $non_deleted = TRUE;
+            break;
+          }
+        }
+        if ($non_deleted) {
+          if (module_exists('field_ui')) {
+            $explanation = t('Field type(s) in use - see <a href="@fields-page">Field list</a>', array('@fields-page' => url('admin/reports/fields')));
+          }
+          else {
+            $explanation = t('Fields type(s) in use');
+          }
+        }
+        else {
+          $explanation = t('Fields pending deletion');
+        }
+        $info['explanation'] = $explanation;
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_menu_alter().
+ *
+ * Creates a new menu callback for field list page to show the plugin provider
+ * instead of "Plug Field".
+ */
+function plug_field_menu_alter(&$items) {
+  if (isset($items['admin/reports/fields'])) {
+    $items['admin/reports/fields']['page callback'] = 'plug_field_field_ui_fields_list';
+    $items['admin/reports/fields']['file'] = 'plug_field.admin.inc';
+    $items['admin/reports/fields']['file path'] = drupal_get_path('module', 'plug_field');
+  }
+}
+
+/**
+ * Implements hook_field_info().
  */
 function plug_field_field_info() {
   return PlugFieldTypeManager::get()->getDefinitions();
