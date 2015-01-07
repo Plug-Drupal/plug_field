@@ -15,7 +15,6 @@ use Drupal\plug_widget\Plugin\Field\FieldWidget\FieldWidgetBase;
  *   id = "my_text_textfield",
  *   label = "My Text field",
  *   field_types = {
- *    "text",
  *    "my_text"
  *   },
  *   settings = {

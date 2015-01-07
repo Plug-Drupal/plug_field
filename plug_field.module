@@ -18,6 +18,8 @@ function plug_field_field_info() {
  * Implements hook_field_load().
  */
 function plug_field_field_load($entity_type, $entities, $field, $instances, $langcode, &$items, $age) {
+  // This is called before hook_init(), so we need to load composer manually.
+  composer_manager_init();
   if ($plugin = PlugFieldTypeManager::get()->createInstance($field['type'])) {
     $plugin->load($entity_type, $entities, $field, $instances, $langcode, $items, $age);
   }
