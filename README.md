@@ -12,3 +12,6 @@ This would not have been possible without the amazing job done in [Plug](https:/
 
 This module requires all the awesomeness implemented there.
 
+## Other dependencies
+This module depends on the patch for [composer_manager](https://www.drupal.org/project/composer_manager) module provided in this [issue](https://www.drupal.org/node/2403317).
+
