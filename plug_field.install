@@ -11,6 +11,8 @@ use \Drupal\plug_field\PlugFieldTypeManager;
  * Implements hook_field_schema().
  */
 function plug_field_field_schema($field) {
+  // This is called before hook_init(), so we need to load composer manually.
+  composer_manager_init();
   $plugin_manager = PlugFieldTypeManager::get();
   return $plugin_manager->createInstance($field['type'])->schema($field);
 }
