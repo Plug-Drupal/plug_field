@@ -48,6 +48,19 @@ function plug_field_system_info_alter(&$info, $file, $type) {
 }
 
 /**
+ * Implements hook_form_FORM_ID_alter() for composer_manager_settings_form().
+ */
+function plug_field_form_composer_manager_settings_form_alter(&$form, &$form_state) {
+  if (variable_get('composer_manager_autoloader_bootstrap', 1)) {
+    $form['composer_manager_autoloader_bootstrap']['#description'] .= '<br /><strong>' . t('Plug Field module requires load on Boot. Please, select "Boot" above.') . '</strong>';
+  }
+  else {
+    $form['composer_manager_autoloader_bootstrap']['#disabled'] = TRUE;
+    $form['composer_manager_autoloader_bootstrap']['#description'] .= '<br /><strong>' . t('This field is disabled because Plug Field module requires load on Boot.') . '</strong>';
+  }
+}
+
+/**
  * Implements hook_menu_alter().
  *
  * Creates a new menu callback for field list page to show the plugin provider
@@ -62,6 +75,28 @@ function plug_field_menu_alter(&$items) {
 }
 
 /**
+ * Implements hook_requirements().
+ */
+function plug_field_requirements($phase) {
+  if ($phase == 'runtime') {
+    if (variable_get('composer_manager_autoloader_bootstrap', 1)) {
+      return array('plug_field' => array(
+        'title' => t('Plug Field Autoload classes'),
+        'description' => t('Plug Field classes are being loaded on init, this can led to unexpected behaviors. Please, change it on !link.', array('!link' => l(t('Composer Manager admin page'), 'admin/config/system/composer-manager/settings'))),
+        'severity' => REQUIREMENT_ERROR,
+      ));
+    }
+    else {
+      return array('plug_field' => array(
+        'title' => t('Plug Field Autoload classes'),
+        'description' => t('Plug Field classes are being loaded on boot, as expected.'),
+        'severity' => REQUIREMENT_OK,
+      ));
+    }
+  }
+}
+
+/**
  * Implements hook_field_info().
  */
 function plug_field_field_info() {
@@ -72,8 +107,6 @@ function plug_field_field_info() {
  * Implements hook_field_load().
  */
 function plug_field_field_load($entity_type, $entities, $field, $instances, $langcode, &$items, $age) {
-  // This is called before hook_init(), so we need to load composer manually.
-  composer_manager_init();
   if ($plugin = PlugFieldTypeManager::get()->createInstance($field['type'])) {
     $plugin->load($entity_type, $entities, $field, $instances, $langcode, $items, $age);
   }
