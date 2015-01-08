@@ -5,3 +5,5 @@ package = Plug
 
 dependencies[] = plug_formatter
 dependencies[] = plug_widget
+
+files[] = tests/PlugFieldExample.test
