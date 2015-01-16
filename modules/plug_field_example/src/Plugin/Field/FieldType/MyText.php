@@ -80,9 +80,6 @@ class MyText extends FieldTypeBase {
         // by formatters if needed.
         if (empty($instances[$id]['settings']['text_processing']) || filter_format_allowcache($item['format'])) {
           $items[$id][$delta]['safe_value'] = isset($item['value']) ? _text_sanitize($instances[$id], $langcode, $item, 'value') : '';
-          if ($field['type'] == 'text_with_summary') {
-            $items[$id][$delta]['safe_summary'] = isset($item['summary']) ? _text_sanitize($instances[$id], $langcode, $item, 'summary') : '';
-          }
         }
       }
     }
@@ -106,10 +103,7 @@ class MyText extends FieldTypeBase {
    * {@inheritdoc}
    */
   public function isEmpty($item, $field) {
-    if (!isset($item['value']) || $item['value'] === '') {
-      return !isset($item['summary']) || $item['summary'] === '';
-    }
-    return FALSE;
+    return !isset($item['value']) || $item['value'] === '';
   }
 
   /**
@@ -126,8 +120,6 @@ class MyText extends FieldTypeBase {
       '#required' => TRUE,
       '#description' => t('The maximum length of the field in characters.'),
       '#element_validate' => array('element_validate_integer_positive'),
-      // @todo: If $has_data, add a validate handler that only allows
-      // max_length to increase.
       '#disabled' => $has_data,
     );
 
@@ -150,14 +142,6 @@ class MyText extends FieldTypeBase {
         t('Filtered text (user selects text format)'),
       ),
     );
-    if ($field['type'] == 'text_with_summary') {
-      $form['display_summary'] = array(
-        '#type' => 'checkbox',
-        '#title' => t('Summary input'),
-        '#default_value' => $settings['display_summary'],
-        '#description' => t('This allows authors to input an explicit summary, to be displayed instead of the automatically trimmed text when using the "Summary or trimmed" display type.'),
-      );
-    }
 
     return $form;
   }
