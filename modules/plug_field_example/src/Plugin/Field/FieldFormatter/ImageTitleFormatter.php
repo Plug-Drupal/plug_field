@@ -31,6 +31,7 @@ class ImageTitleFormatter extends FieldFormatterBase {
   public function settingsForm($field, $instance, $view_mode, $form, &$form_state) {
     $display = $instance['display'][$view_mode];
     $settings = $display['settings'];
+    $element = array();
 
     $image_styles = image_style_options(FALSE, PASS_THROUGH);
     $element['image_style'] = array(
@@ -61,6 +62,7 @@ class ImageTitleFormatter extends FieldFormatterBase {
   public function settingsSummary($field, $instance, $view_mode) {
     $display = $instance['display'][$view_mode];
     $settings = $display['settings'];
+    $summary = array();
 
     $image_styles = image_style_options(FALSE, PASS_THROUGH);
     // Unset possible 'No defined styles' option.
@@ -112,7 +114,7 @@ class ImageTitleFormatter extends FieldFormatterBase {
           '#item' => $item,
           '#image_style' => $display['settings']['image_style'],
           '#path' => isset($uri) ? $uri : '',
-        )
+        ),
       );
       if (isset($item['title']) && drupal_strlen($item['title']) > 0) {
         $element[$delta][] = array(

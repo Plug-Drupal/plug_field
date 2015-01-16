@@ -8,7 +8,6 @@
 namespace Drupal\plug_field_example\Plugin\Field\FieldType;
 
 use Drupal\plug_field\Plugin\Field\FieldType\FieldTypeBase;
-use Drupal\plug_field\Plugin\Field\FieldType\FieldTypeInterface;
 
 /**
  * Class MyText
@@ -94,26 +93,11 @@ class MyText extends FieldTypeBase {
    */
   public function validate($entity_type, $entity, $field, $instance, $langcode, $items, &$errors) {
     foreach ($items as $delta => $item) {
-      // @todo Length is counted separately for summary and value, so the maximum
-      //   length can be exceeded very easily.
-      foreach (array('value', 'summary') as $column) {
-        if (!empty($item[$column])) {
-          if (!empty($field['settings']['max_length']) && drupal_strlen($item[$column]) > $field['settings']['max_length']) {
-            switch ($column) {
-              case 'value':
-                $message = t('%name: the text may not be longer than %max characters.', array('%name' => $instance['label'], '%max' => $field['settings']['max_length']));
-                break;
-
-              case 'summary':
-                $message = t('%name: the summary may not be longer than %max characters.', array('%name' => $instance['label'], '%max' => $field['settings']['max_length']));
-                break;
-            }
-            $errors[$field['field_name']][$langcode][$delta][] = array(
-              'error' => "text_{$column}_length",
-              'message' => $message,
-            );
-          }
-        }
+      if (!empty($item['value']) && !empty($field['settings']['max_length']) && drupal_strlen($item['value']) > $field['settings']['max_length']) {
+        $errors[$field['field_name']][$langcode][$delta][] = array(
+          'error' => "text_value_length",
+          'message' => t('%name: the text may not be longer than %max characters.', array('%name' => $instance['label'], '%max' => $field['settings']['max_length'])),
+        );
       }
     }
   }
@@ -133,22 +117,19 @@ class MyText extends FieldTypeBase {
    */
   public function settingsForm($field, $instance, $has_data) {
     $settings = $field['settings'];
-
     $form = array();
 
-    if ($field['type'] == 'text') {
-      $form['max_length'] = array(
-        '#type' => 'textfield',
-        '#title' => t('Maximum length'),
-        '#default_value' => $settings['max_length'],
-        '#required' => TRUE,
-        '#description' => t('The maximum length of the field in characters.'),
-        '#element_validate' => array('element_validate_integer_positive'),
-        // @todo: If $has_data, add a validate handler that only allows
-        // max_length to increase.
-        '#disabled' => $has_data,
-      );
-    }
+    $form['max_length'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Maximum length'),
+      '#default_value' => $settings['max_length'],
+      '#required' => TRUE,
+      '#description' => t('The maximum length of the field in characters.'),
+      '#element_validate' => array('element_validate_integer_positive'),
+      // @todo: If $has_data, add a validate handler that only allows
+      // max_length to increase.
+      '#disabled' => $has_data,
+    );
 
     return $form;
   }
@@ -158,6 +139,7 @@ class MyText extends FieldTypeBase {
    */
   public function instanceSettingsForm($field, $instance) {
     $settings = $instance['settings'];
+    $form = array();
 
     $form['text_processing'] = array(
       '#type' => 'radios',

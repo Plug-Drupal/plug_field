@@ -35,6 +35,7 @@ class MyTextWidget extends FieldWidgetBase {
    */
   public function settingsForm($field, $instance) {
     $settings = $instance['widget']['settings'];
+    $form = array();
 
     $form['size'] = array(
       '#type' => 'textfield',
@@ -51,7 +52,7 @@ class MyTextWidget extends FieldWidgetBase {
    * {@inheritdoc}
    */
   public function widgetForm(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
-     $main_widget = $element += array(
+    $main_widget = $element += array(
       '#type' => 'textfield',
       '#default_value' => isset($items[$delta]['value']) ? $items[$delta]['value'] : NULL,
       '#size' => $instance['widget']['settings']['size'],
@@ -59,7 +60,7 @@ class MyTextWidget extends FieldWidgetBase {
       '#attributes' => array('class' => array('text-full')),
       '#prefix' => 'My Widget',
     );
-    // Conditionally alter the form element's type if text processing is enabled.
+    // Conditionally alter the form element's type if processing is enabled.
     if ($instance['settings']['text_processing']) {
       $element = $main_widget;
       $element['#type'] = 'text_format';

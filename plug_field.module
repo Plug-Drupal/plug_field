@@ -80,18 +80,22 @@ function plug_field_menu_alter(&$items) {
 function plug_field_requirements($phase) {
   if ($phase == 'runtime') {
     if (variable_get('composer_manager_autoloader_bootstrap', 1)) {
-      return array('plug_field' => array(
-        'title' => t('Plug Field Autoload classes'),
-        'description' => t('Plug Field classes are being loaded on init, this can led to unexpected behaviors. Please, change it on !link.', array('!link' => l(t('Composer Manager admin page'), 'admin/config/system/composer-manager/settings'))),
-        'severity' => REQUIREMENT_ERROR,
-      ));
+      return array(
+        'plug_field' => array(
+          'title' => t('Plug Field Autoload classes'),
+          'description' => t('Plug Field classes are being loaded on init, this can led to unexpected behaviors. Please, change it on !link.', array('!link' => l(t('Composer Manager admin page'), 'admin/config/system/composer-manager/settings'))),
+          'severity' => REQUIREMENT_ERROR,
+        )
+      );
     }
     else {
-      return array('plug_field' => array(
-        'title' => t('Plug Field Autoload classes'),
-        'description' => t('Plug Field classes are being loaded on boot, as expected.'),
-        'severity' => REQUIREMENT_OK,
-      ));
+      return array(
+        'plug_field'=> array(
+          'title' => t('Plug Field Autoload classes'),
+          'description' => t('Plug Field classes are being loaded on boot, as expected.'),
+          'severity' => REQUIREMENT_OK,
+        )
+      );
     }
   }
 }

@@ -36,6 +36,7 @@ class MyTextFormatter extends FieldFormatterBase {
   public function settingsForm($field, $instance, $view_mode, $form, &$form_state) {
     $display = $instance['display'][$view_mode];
     $settings = $display['settings'];
+    $element = array();
 
     $element['extra_class'] = array(
       '#title' => t('Add extra class'),
@@ -52,6 +53,7 @@ class MyTextFormatter extends FieldFormatterBase {
   public function settingsSummary($field, $instance, $view_mode) {
     $display = $instance['display'][$view_mode];
     $settings = $display['settings'];
+    $summary = array();
 
     if (!empty($settings['extra_class'])) {
       $summary[] = t('Extra class added');

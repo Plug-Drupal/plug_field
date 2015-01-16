@@ -28,13 +28,12 @@ class PlugFieldTypeManager extends PlugFieldManagerBase {
    * {@inheritdoc}
    */
   protected function findDefinitions() {
-    $definitions = parent::findDefinitions();
     // Add field type and field instance default settings to definition.
-    foreach ($definitions as &$definition) {
-      $definition['settings'] = call_user_func_array(array($definition['class'], 'defaultSettings'),array());
-      $definition['instance_settings'] = call_user_func_array(array($definition['class'], 'defaultInstanceSettings'),array());
-    }
-    return $definitions;
+    return array_map(function($definition) {
+      $definition['settings'] = call_user_func_array(array($definition['class'], 'defaultSettings'), array());
+      $definition['instance_settings'] = call_user_func_array(array($definition['class'], 'defaultInstanceSettings'), array());
+      return $definition;
+    }, parent::findDefinitions());
   }
 
 }

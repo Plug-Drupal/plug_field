@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/plopesc/plug_field.svg?branch=7.x-1.x)](https://travis-ci.org/plopesc/plug_field)
+[![Build Status](https://travis-ci.org/plopesc/plug_field.svg?branch=7.x-1.x)](https://travis-ci.org/plopesc/plug_field) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/plopesc/plug_field/badges/quality-score.png?b=7.x-1.x)](https://scrutinizer-ci.com/g/plopesc/plug_field/?branch=7.x-1.x)
 # Plug Field
 Get the  Field API **plugin system** for Drupal 8 in your **Drupal 7 developments**.
 
