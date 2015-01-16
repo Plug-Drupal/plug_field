@@ -304,6 +304,17 @@ interface FieldTypeInterface {
   public function isEmpty($item, $field);
 
   /**
+   * Array containing the field type default settings.
+   *
+   * An array whose keys are the names of the settings available for the field
+   * type, and whose values are the default values for those settings.
+   *
+   * @return array
+   *   The default field type settings array.
+   */
+  public static function defaultSettings();
+
+  /**
    * Add settings to a field settings form.
    *
    * Invoked from field_ui_field_settings_form() to allow the module defining the
@@ -329,6 +340,23 @@ interface FieldTypeInterface {
    *   The form definition for the field settings.
    */
   public function settingsForm($field, $instance, $has_data);
+
+  /**
+   * Array containing the field instance default settings.
+   *
+   * An array whose keys are the names of the settings available for instances
+   * of the field type, and whose values are the default values for those
+   * settings. Instance-level settings can have different values on each field
+   * instance, and thus allow greater flexibility than field-level settings. It
+   * is recommended to put settings at the instance level whenever possible.
+   * Notable exceptions: settings acting on the schema definition, or settings
+   * that Views needs to use across field instances (for example, the list of
+   * allowed values).
+   *
+   * @return array
+   *   The default instance settings array.
+   */
+  public static function defaultInstanceSettings();
 
   /**
    * Add settings to an instance field settings form.

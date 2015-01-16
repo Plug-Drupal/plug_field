@@ -12,6 +12,13 @@ abstract class FieldWidgetBase implements FieldWidgetInterface {
   /**
    * {@inheritdoc}
    */
+  public static function defaultSettings() {
+    return array();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function settingsForm($field, $instance) { }
 
 }

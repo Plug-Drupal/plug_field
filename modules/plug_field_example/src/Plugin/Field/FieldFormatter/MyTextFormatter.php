@@ -16,13 +16,19 @@ use Drupal\plug_formatter\Plugin\Field\FieldFormatter\FieldFormatterBase;
  *   label = "My Text",
  *   field_types = {
  *     "my_text"
- *   },
- *   settings = {
- *     "extra_class" = FALSE
  *   }
  * )
  */
 class MyTextFormatter extends FieldFormatterBase {
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function defaultSettings() {
+    return array(
+      'extra_class' => FALSE,
+    );
+  }
 
   /**
    * {@inheritdoc}

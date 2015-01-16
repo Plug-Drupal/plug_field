@@ -57,7 +57,21 @@ abstract class FieldTypeBase implements FieldTypeInterface {
   /**
    * {@inheritdoc}
    */
+  public static function defaultSettings() {
+    return array();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function settingsForm($field, $instance, $has_data) {
+    return array();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function defaultInstanceSettings() {
     return array();
   }
 

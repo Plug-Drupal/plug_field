@@ -12,6 +12,13 @@ abstract class FieldFormatterBase implements FieldFormatterInterface {
   /**
    * {@inheritdoc}
    */
+  public static function defaultSettings() {
+    return array();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function settingsForm($field, $instance, $view_mode, $form, &$form_state) { }
 
   /**

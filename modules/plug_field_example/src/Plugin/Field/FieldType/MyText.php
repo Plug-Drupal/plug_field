@@ -18,17 +18,29 @@ use Drupal\plug_field\Plugin\Field\FieldType\FieldTypeInterface;
  *   id = "my_text",
  *   label = "My Text",
  *   description = "This field stores varchar text in the database.",
- *   settings = {
- *     "max_length" = 255
- *   },
- *   instance_settings = {
- *     "text_processing" = 0
- *   },
  *   default_widget = "my_text_textfield",
  *   default_formatter = "text_default"
  * )
  */
 class MyText extends FieldTypeBase {
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function defaultSettings() {
+    return array(
+      'max_length' => 255,
+    );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function defaultInstanceSettings() {
+    return array(
+      'text_processing' => 0,
+    );
+  }
 
   /**
    * {@inheritdoc}

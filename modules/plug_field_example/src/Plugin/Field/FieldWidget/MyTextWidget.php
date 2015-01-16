@@ -16,13 +16,19 @@ use Drupal\plug_widget\Plugin\Field\FieldWidget\FieldWidgetBase;
  *   label = "My Text field",
  *   field_types = {
  *    "my_text"
- *   },
- *   settings = {
- *    "size" = 60
  *   }
  * )
  */
 class MyTextWidget extends FieldWidgetBase {
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function defaultSettings() {
+    return array(
+      'size' => 60,
+    );
+  }
 
   /**
    * {@inheritdoc}

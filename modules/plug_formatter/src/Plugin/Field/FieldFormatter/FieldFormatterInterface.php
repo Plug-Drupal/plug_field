@@ -10,6 +10,17 @@ namespace Drupal\plug_formatter\Plugin\Field\FieldFormatter;
 interface FieldFormatterInterface {
 
   /**
+   * Array containing the formatter type default settings.
+   *
+   * An array whose keys are the names of the settings available for the
+   * formatter type, and whose values are the default values for those settings.
+   *
+   * @return array
+   *   The formatter type default settings.
+   */
+  public static function defaultSettings();
+
+  /**
    * Specify the form elements for a formatter's settings.
    *
    * @param $field

@@ -45,12 +45,4 @@ class FieldFormatter extends Plugin {
    */
   public $field_types;
 
-  /**
-   * An array whose keys are the names of the settings available for the
-   * formatter type, and whose values are the default values for those settings.
-   *
-   * @var array
-   */
-  public $settings;
-
 }

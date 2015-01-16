@@ -42,20 +42,4 @@ abstract class PlugFieldManagerBase extends DefaultPluginManager {
     return $manager;
   }
 
-  /**
-   * {@inheritdoc}
-   */
-  protected function findDefinitions() {
-    $definitions = parent::findDefinitions();
-    // Convert "field_types" key to "field types", given that annotations don't
-    // allow spaces.
-    foreach ($definitions as &$definition) {
-      if (isset($definition['field_types'])) {
-        $definition['field types'] = $definition['field_types'];
-        unset($definition['field_types']);
-      }
-    }
-    return $definitions;
-  }
-
 }

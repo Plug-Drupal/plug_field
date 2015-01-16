@@ -10,6 +10,17 @@ namespace Drupal\plug_widget\Plugin\Field\FieldWidget;
 interface FieldWidgetInterface {
 
   /**
+   * Array containing the widget type default settings.
+   *
+   * An array whose keys are the names of the settings available for the
+   * widget type, and whose values are the default values for those settings.
+   *
+   * @return array
+   *   The widget type default settings.
+   */
+  public static function defaultSettings();
+
+  /**
    * Return the form for a single field widget.
    *
    * Field widget form elements should be based on the passed-in $element, which

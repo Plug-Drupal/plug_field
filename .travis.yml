@@ -51,7 +51,7 @@ before_script:
   - phpenv rehash
   # Set variable to 0 to avoid automatic composer build
   - drush vset composer_manager_autobuild_packages 0 -y
-  # Increse nmax_allowed_packet to avoid MySQL errors
+  # Increase nmax_allowed_packet to avoid MySQL errors
   - echo -e "[server]\nmax_allowed_packet=64M" | sudo tee -a /etc/mysql/conf.d/drupal.cnf
   - sudo service mysql restart
 

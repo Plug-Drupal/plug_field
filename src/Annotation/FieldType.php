@@ -39,28 +39,6 @@ class FieldType extends Plugin {
   public $description;
 
   /**
-   * An array whose keys are the names of the settings available for the field
-   * type, and whose values are the default values for those settings.
-   *
-   * @var array
-   */
-  public $settings;
-
-  /**
-   * An array whose keys are the names of the settings available for instances
-   * of the field type, and whose values are the default values for those
-   * settings. Instance-level settings can have different values on each field
-   * instance, and thus allow greater flexibility than field-level settings. It
-   * is recommended to put settings at the instance level whenever possible.
-   * Notable exceptions: settings acting on the schema definition, or settings
-   * that Views needs to use across field instances (for example, the list of
-   * allowed values).
-   *
-   * @var array
-   */
-  public $instance_settings;
-
-  /**
    * The machine name of the default widget to be used by instances of this
    * field type, when no widget is specified in the instance definition. This
    * widget must be available whenever the field type is available (i.e.

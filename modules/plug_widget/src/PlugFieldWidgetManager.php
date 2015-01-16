@@ -26,4 +26,19 @@ class PlugFieldWidgetManager extends PlugFieldManagerBase {
     $this->alterInfo('field_widget_plugin');
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  protected function findDefinitions() {
+    $definitions = parent::findDefinitions();
+    // Convert "field_types" key to "field types", given that annotations don't
+    // allow spaces and add default settings.
+    foreach ($definitions as &$definition) {
+      $definition['field types'] = $definition['field_types'];
+      unset($definition['field_types']);
+      $definition['settings'] = call_user_func_array(array($definition['class'], 'defaultSettings'),array());
+    }
+    return $definitions;
+  }
+
 }
