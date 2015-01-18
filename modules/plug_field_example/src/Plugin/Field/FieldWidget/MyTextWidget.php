@@ -33,14 +33,13 @@ class MyTextWidget extends FieldWidgetBase {
   /**
    * {@inheritdoc}
    */
-  public function settingsForm($field, $instance) {
-    $settings = $instance['widget']['settings'];
+  public function settingsForm() {
     $form = array();
 
     $form['size'] = array(
       '#type' => 'textfield',
       '#title' => t('Size of my textfield'),
-      '#default_value' => $settings['size'],
+      '#default_value' => $this->getSetting('size'),
       '#required' => TRUE,
       '#element_validate' => array('element_validate_integer_positive'),
     );
@@ -51,17 +50,20 @@ class MyTextWidget extends FieldWidgetBase {
   /**
    * {@inheritdoc}
    */
-  public function widgetForm(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
+  public function widgetForm(&$form, &$form_state, $langcode, $items, $delta, $element) {
+    $field_definition = $this->getFieldDefinition();
+    $instance_definition = $this->getInstanceDefinition();
+
     $main_widget = $element += array(
       '#type' => 'textfield',
       '#default_value' => isset($items[$delta]['value']) ? $items[$delta]['value'] : NULL,
-      '#size' => $instance['widget']['settings']['size'],
-      '#maxlength' => $field['settings']['max_length'],
+      '#size' => $this->getSetting('size'),
+      '#maxlength' => $field_definition['settings']['max_length'],
       '#attributes' => array('class' => array('text-full')),
       '#prefix' => 'My Widget',
     );
     // Conditionally alter the form element's type if processing is enabled.
-    if ($instance['settings']['text_processing']) {
+    if ($instance_definition['settings']['text_processing']) {
       $element = $main_widget;
       $element['#type'] = 'text_format';
       $element['#format'] = isset($items[$delta]['format']) ? $items[$delta]['format'] : NULL;

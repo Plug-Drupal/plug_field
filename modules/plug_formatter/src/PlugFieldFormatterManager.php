@@ -8,8 +8,11 @@
 namespace Drupal\plug_formatter;
 
 use Drupal\plug_field\PlugFieldManagerBase;
+use Drupal\plug_field\PluginDefinitionsTrait;
 
 class PlugFieldFormatterManager extends PlugFieldManagerBase {
+
+  use PluginDefinitionsTrait;
 
   /**
    * Constructs PlugFieldFormatterManager.
@@ -24,20 +27,6 @@ class PlugFieldFormatterManager extends PlugFieldManagerBase {
     parent::__construct('Plugin/Field/FieldFormatter', $namespaces, 'Drupal\plug_formatter\Plugin\Field\FieldFormatter\FieldFormatterInterface', '\Drupal\plug_formatter\Annotation\FieldFormatter');
     $this->setCacheBackend($cache_backend, 'field_formatter_plugins');
     $this->alterInfo('field_formatter_plugin');
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function findDefinitions() {
-    // Convert "field_types" key to "field types", given that annotations don't
-    // allow spaces and add default settings.
-    return array_map(function($definition) {
-      $definition['field types'] = $definition['field_types'];
-      unset($definition['field_types']);
-      $definition['settings'] = call_user_func_array(array($definition['class'], 'defaultSettings'), array());
-      return $definition;
-    }, parent::findDefinitions());
   }
 
 }

@@ -7,7 +7,9 @@
 
 namespace Drupal\plug_field\Plugin\Field\FieldType;
 
-abstract class FieldTypeBase implements FieldTypeInterface {
+use Drupal\Component\Plugin\PluginBase;
+
+abstract class FieldTypeBase extends PluginBase implements FieldTypeInterface {
 
   /**
    * {@inheritdoc}
