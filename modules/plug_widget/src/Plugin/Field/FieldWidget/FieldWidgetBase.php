@@ -21,23 +21,24 @@ abstract class FieldWidgetBase extends PluginBase implements FieldWidgetInterfac
   /**
    * {@inheritdoc}
    */
-  public function getInstanceDefinition() {
-    return $this->configuration['instanceDefinition'];
+  public function getFieldInstanceDefinition() {
+    return $this->configuration['fieldInstanceDefinition'];
   }
 
   /**
    * {@inheritdoc}
    */
   public function getSettings() {
-    return $this->configuration['instanceDefinition']['widget']['settings'];
+    $widget = $this->configuration['fieldInstanceDefinition']->get('widget');
+    return $widget['settings'];
   }
 
   /**
    * {@inheritdoc}
    */
   public function getSetting($setting_name) {
-    return isset($this->configuration['instanceDefinition']['widget']['settings'][$setting_name]) ?
-      $this->configuration['instanceDefinition']['widget']['settings'][$setting_name] : NULL;
+    $widget = $this->configuration['fieldInstanceDefinition']->get('widget');
+    return isset($widget['settings'][$setting_name]) ? $widget['settings'][$setting_name] : NULL;
   }
 
   /**

@@ -21,20 +21,20 @@ interface FieldFormatterInterface {
   public static function defaultSettings();
 
   /**
-   * Gets the field type definition array.
+   * Gets the field type definition object.
    *
-   * @return array
-   *   The field type definition array
+   * @return \Drupal\plug_field\FieldDefinitionInterface.
+   *   The field type definition object.
    */
   public function getFieldDefinition();
 
   /**
-   * Gets the field instance definition array.
+   * Gets the field instance definition object.
    *
-   * @return array
-   *   The field instance definition array
+   * @return \Drupal\plug_field\FieldInstanceDefinitionInterface.
+   *   The field instance definition object.
    */
-  public function getInstanceDefinition();
+  public function getFieldInstanceDefinition();
 
   /**
    * Gets the Formatter settings array.
@@ -58,10 +58,6 @@ interface FieldFormatterInterface {
   /**
    * Specify the form elements for a formatter's settings.
    *
-   * @param $field
-   *   The field structure being configured.
-   * @param $instance
-   *   The instance structure being configured.
    * @param $view_mode
    *   The view mode being configured.
    * @param $form
@@ -81,10 +77,6 @@ interface FieldFormatterInterface {
    * configurable settings, and no UI will be provided to display a settings
    * form.
    *
-   * @param $field
-   *   The field structure.
-   * @param $instance
-   *   The instance structure.
    * @param $view_mode
    *   The view mode for which a settings summary is requested.
    *
@@ -100,10 +92,6 @@ interface FieldFormatterInterface {
    *   The type of $entity.
    * @param $entity
    *   The entity being displayed.
-   * @param $field
-   *   The field structure.
-   * @param $instance
-   *   The field instance.
    * @param $langcode
    *   The language associated with $items.
    * @param $items

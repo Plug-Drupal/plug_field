@@ -34,8 +34,8 @@ class MyTextFormatter extends FieldFormatterBase {
    * {@inheritdoc}
    */
   public function settingsForm($view_mode, $form, &$form_state) {
-    $instance_definition = $this->getInstanceDefinition();
-    $settings = $instance_definition['display'][$view_mode]['settings'];
+    $display = $this->getFieldInstanceDefinition()->get('display');
+    $settings = $display[$view_mode]['settings'];
     $element = array();
 
     $element['extra_class'] = array(
@@ -51,8 +51,8 @@ class MyTextFormatter extends FieldFormatterBase {
    * {@inheritdoc}
    */
   public function settingsSummary($view_mode) {
-    $instance_definition = $this->getInstanceDefinition();
-    $settings = $instance_definition['display'][$view_mode]['settings'];
+    $display = $this->getFieldInstanceDefinition()->get('display');
+    $settings = $display[$view_mode]['settings'];
     $summary = array();
 
     if (!empty($settings['extra_class'])) {
@@ -69,7 +69,7 @@ class MyTextFormatter extends FieldFormatterBase {
    * {@inheritdoc}
    */
   public function viewElements($entity_type, $entity, $langcode, $items, $display) {
-    $instance_definition = $this->getInstanceDefinition();
+    $instance_definition = $this->getFieldInstanceDefinition();
     $element = array();
 
     foreach ($items as $delta => $item) {

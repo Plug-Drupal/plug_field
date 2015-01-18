@@ -29,8 +29,8 @@ class ImageTitleFormatter extends FieldFormatterBase {
    * {@inheritdoc}
    */
   public function settingsForm($view_mode, $form, &$form_state) {
-    $instance_definition = $this->getInstanceDefinition();
-    $settings = $instance_definition['display'][$view_mode]['settings'];
+    $display = $this->getFieldInstanceDefinition()->get('display');
+    $settings = $display[$view_mode]['settings'];
     $element = array();
 
     $image_styles = image_style_options(FALSE, PASS_THROUGH);
@@ -60,8 +60,8 @@ class ImageTitleFormatter extends FieldFormatterBase {
    * {@inheritdoc}
    */
   public function settingsSummary($view_mode) {
-    $instance_definition = $this->getInstanceDefinition();
-    $settings = $instance_definition['display'][$view_mode]['settings'];
+    $display = $this->getFieldInstanceDefinition()->get('display');
+    $settings = $display[$view_mode]['settings'];
     $summary = array();
 
     $image_styles = image_style_options(FALSE, PASS_THROUGH);

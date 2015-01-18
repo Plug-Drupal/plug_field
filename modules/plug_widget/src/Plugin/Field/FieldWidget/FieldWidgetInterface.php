@@ -7,6 +7,7 @@
 
 namespace Drupal\plug_widget\Plugin\Field\FieldWidget;
 
+
 interface FieldWidgetInterface {
 
   /**
@@ -21,20 +22,20 @@ interface FieldWidgetInterface {
   public static function defaultSettings();
 
   /**
-   * Gets the field type definition array.
+   * Gets the field type definition object.
    *
-   * @return array
-   *   The field type definition array
+   * @return \Drupal\plug_field\FieldDefinitionInterface.
+   *   The field type definition object.
    */
   public function getFieldDefinition();
 
   /**
-   * Gets the field instance definition array.
+   * Gets the field instance definition object.
    *
-   * @return array
-   *   The field instance definition array
+   * @return \Drupal\plug_field\FieldInstanceDefinitionInterface.
+   *   The field instance definition object.
    */
-  public function getInstanceDefinition();
+  public function getFieldInstanceDefinition();
 
   /**
    * Gets the Widget settings array.

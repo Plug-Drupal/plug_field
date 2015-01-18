@@ -4,6 +4,8 @@
  * Module implementation File.
  */
 
+use \Drupal\plug_field\FieldDefinition;
+use \Drupal\plug_field\FieldInstanceDefinition;
 use \Drupal\plug_formatter\PlugFieldFormatterManager;
 
 /**
@@ -19,8 +21,8 @@ function plug_formatter_field_formatter_info() {
 function plug_formatter_field_formatter_settings_form($field, $instance, $view_mode, $form, &$form_state) {
   $display = $instance['display'][$view_mode];
   if ($plugin = PlugFieldFormatterManager::get()->createInstance($display['type'], array(
-    'fieldDefinition' => $field,
-    'instanceDefinition' => $instance,
+    'fieldDefinition' => new FieldDefinition($field),
+    'fieldInstanceDefinition' => new FieldInstanceDefinition($instance),
   ))) {
     return $plugin->settingsForm($view_mode, $form, $form_state);
   }
@@ -34,8 +36,8 @@ function plug_formatter_field_formatter_settings_summary($field, $instance, $vie
   $summary = array();
 
   if ($plugin = PlugFieldFormatterManager::get()->createInstance($display['type'], array(
-    'fieldDefinition' => $field,
-    'instanceDefinition' => $instance,
+    'fieldDefinition' => new FieldDefinition($field),
+    'fieldInstanceDefinition' => new FieldInstanceDefinition($instance),
   ))) {
     $summary = $plugin->settingsSummary($view_mode);
   }
@@ -48,8 +50,8 @@ function plug_formatter_field_formatter_settings_summary($field, $instance, $vie
  */
 function plug_formatter_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
   if ($plugin = PlugFieldFormatterManager::get()->createInstance($display['type'], array(
-    'fieldDefinition' => $field,
-    'instanceDefinition' => $instance,
+    'fieldDefinition' => new FieldDefinition($field),
+    'fieldInstanceDefinition' => new FieldInstanceDefinition($instance),
   ))) {
     return $plugin->viewElements($entity_type, $entity, $langcode, $items, $display);
   }

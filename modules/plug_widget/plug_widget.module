@@ -4,6 +4,8 @@
  * Module implementation File.
  */
 
+use \Drupal\plug_field\FieldDefinition;
+use \Drupal\plug_field\FieldInstanceDefinition;
 use \Drupal\plug_widget\PlugFieldWidgetManager;
 
 /**
@@ -19,8 +21,8 @@ function plug_widget_field_widget_info() {
 function plug_widget_field_widget_settings_form($field, $instance) {
   $widget = $instance['widget'];
   if ($plugin = PlugFieldWidgetManager::get()->createInstance($widget['type'], array(
-    'fieldDefinition' => $field,
-    'instanceDefinition' => $instance,
+    'fieldDefinition' => new FieldDefinition($field),
+    'fieldInstanceDefinition' => new FieldInstanceDefinition($instance),
   ))) {
     return $plugin->settingsForm();
   }
@@ -32,8 +34,8 @@ function plug_widget_field_widget_settings_form($field, $instance) {
 function plug_widget_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
   $widget = $instance['widget'];
   if ($plugin = PlugFieldWidgetManager::get()->createInstance($widget['type'], array(
-    'fieldDefinition' => $field,
-    'instanceDefinition' => $instance,
+    'fieldDefinition' => new FieldDefinition($field),
+    'fieldInstanceDefinition' => new FieldInstanceDefinition($instance),
   ))) {
     return $plugin->widgetForm($form, $form_state, $langcode, $items, $delta, $element);
   }

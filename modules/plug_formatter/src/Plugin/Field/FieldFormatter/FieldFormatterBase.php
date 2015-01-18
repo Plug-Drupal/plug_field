@@ -21,23 +21,23 @@ abstract class FieldFormatterBase extends PluginBase implements FieldFormatterIn
   /**
    * {@inheritdoc}
    */
-  public function getInstanceDefinition() {
-    return $this->configuration['instanceDefinition'];
+  public function getFieldInstanceDefinition() {
+    return $this->configuration['fieldInstanceDefinition'];
   }
 
   /**
    * {@inheritdoc}
    */
   public function getSettings() {
-    return $this->configuration['instanceDefinition']['widget']['settings'];
+    return $this->configuration['fieldInstanceDefinition']['widget']['settings'];
   }
 
   /**
    * {@inheritdoc}
    */
   public function getSetting($setting_name) {
-    return isset($this->configuration['instanceDefinition']['widget']['settings'][$setting_name]) ?
-      $this->configuration['instanceDefinition']['widget']['settings'][$setting_name] : NULL;
+    return isset($this->configuration['fieldInstanceDefinition']['widget']['settings'][$setting_name]) ?
+      $this->configuration['fieldInstanceDefinition']['widget']['settings'][$setting_name] : NULL;
   }
 
   /**

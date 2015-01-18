@@ -51,19 +51,16 @@ class MyTextWidget extends FieldWidgetBase {
    * {@inheritdoc}
    */
   public function widgetForm(&$form, &$form_state, $langcode, $items, $delta, $element) {
-    $field_definition = $this->getFieldDefinition();
-    $instance_definition = $this->getInstanceDefinition();
-
     $main_widget = $element += array(
       '#type' => 'textfield',
       '#default_value' => isset($items[$delta]['value']) ? $items[$delta]['value'] : NULL,
       '#size' => $this->getSetting('size'),
-      '#maxlength' => $field_definition['settings']['max_length'],
+      '#maxlength' => $this->getFieldDefinition()->getSetting('max_length'),
       '#attributes' => array('class' => array('text-full')),
       '#prefix' => 'My Widget',
     );
     // Conditionally alter the form element's type if processing is enabled.
-    if ($instance_definition['settings']['text_processing']) {
+    if ($this->getFieldInstanceDefinition()->getSetting('text_processing')) {
       $element = $main_widget;
       $element['#type'] = 'text_format';
       $element['#format'] = isset($items[$delta]['format']) ? $items[$delta]['format'] : NULL;
