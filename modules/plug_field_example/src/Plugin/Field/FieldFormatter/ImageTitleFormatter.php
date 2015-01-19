@@ -16,14 +16,20 @@ use Drupal\plug_formatter\Plugin\Field\FieldFormatter\FieldFormatterBase;
  *   label = "Image with title",
  *   field_types = {
  *     "image"
- *   },
- *   settings = {
- *     "image_style" = "",
- *     "image_link" = ""
  *   }
  * )
  */
 class ImageTitleFormatter extends FieldFormatterBase {
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function defaultSettings() {
+    return array(
+      'image_style' => '',
+      'image_link' => '',
+    );
+  }
 
   /**
    * {@inheritdoc}

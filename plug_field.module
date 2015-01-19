@@ -5,6 +5,7 @@
  * Module implementation file.
  */
 
+use \Drupal\plug_field\FieldDefinition;
 use \Drupal\plug_field\PlugFieldTypeManager;
 
 /**
@@ -111,8 +112,10 @@ function plug_field_field_info() {
  * Implements hook_field_load().
  */
 function plug_field_field_load($entity_type, $entities, $field, $instances, $langcode, &$items, $age) {
-  if ($plugin = PlugFieldTypeManager::get()->createInstance($field['type'])) {
-    $plugin->load($entity_type, $entities, $field, $instances, $langcode, $items, $age);
+  if ($plugin = PlugFieldTypeManager::get()->createInstance($field['type'], array(
+    'fieldDefinition' => new FieldDefinition($field),
+  ))) {
+    $plugin->load($entity_type, $entities, $instances, $langcode, $items, $age);
   }
 }
 
@@ -120,8 +123,10 @@ function plug_field_field_load($entity_type, $entities, $field, $instances, $lan
  * Implements hook_field_prepare_view().
  */
 function plug_field_field_prepare_view($entity_type, $entities, $field, $instances, $langcode, &$items) {
-  if ($plugin = PlugFieldTypeManager::get()->createInstance($field['type'])) {
-    $plugin->prepareView($entity_type, $entities, $field, $instances, $langcode, $items);
+  if ($plugin = PlugFieldTypeManager::get()->createInstance($field['type'], array(
+    'fieldDefinition' => new FieldDefinition($field),
+  ))) {
+    $plugin->prepareView($entity_type, $entities, $instances, $langcode, $items);
   }
 }
 
@@ -129,8 +134,10 @@ function plug_field_field_prepare_view($entity_type, $entities, $field, $instanc
  * Implements hook_field_validate().
  */
 function plug_field_field_validate($entity_type, $entity, $field, $instance, $langcode, $items, &$errors) {
-  if ($plugin = PlugFieldTypeManager::get()->createInstance($field['type'])) {
-    $plugin->validate($entity_type, $entity, $field, $instance, $langcode, $items, $errors);
+  if ($plugin = PlugFieldTypeManager::get()->createInstance($field['type'], array(
+    'fieldDefinition' => new FieldDefinition($field),
+  ))) {
+    $plugin->validate($entity_type, $entity, $instance, $langcode, $items, $errors);
   }
 }
 
@@ -138,8 +145,10 @@ function plug_field_field_validate($entity_type, $entity, $field, $instance, $la
  * Implements hook_field_presave().
  */
 function plug_field_field_presave($entity_type, $entity, $field, $instance, $langcode, &$items) {
-  if ($plugin = PlugFieldTypeManager::get()->createInstance($field['type'])) {
-    $plugin->preSave($entity_type, $entity, $field, $instance, $langcode, $items);
+  if ($plugin = PlugFieldTypeManager::get()->createInstance($field['type'], array(
+    'fieldDefinition' => new FieldDefinition($field),
+  ))) {
+    $plugin->preSave($entity_type, $entity, $instance, $langcode, $items);
   }
 }
 
@@ -147,8 +156,10 @@ function plug_field_field_presave($entity_type, $entity, $field, $instance, $lan
  * Implements hook_field_insert().
  */
 function plug_field_field_insert($entity_type, $entity, $field, $instance, $langcode, &$items) {
-  if ($plugin = PlugFieldTypeManager::get()->createInstance($field['type'])) {
-    $plugin->insert($entity_type, $entity, $field, $instance, $langcode, $items);
+  if ($plugin = PlugFieldTypeManager::get()->createInstance($field['type'], array(
+    'fieldDefinition' => new FieldDefinition($field),
+  ))) {
+    $plugin->insert($entity_type, $entity, $instance, $langcode, $items);
   }
 }
 
@@ -156,8 +167,10 @@ function plug_field_field_insert($entity_type, $entity, $field, $instance, $lang
  * Implements hook_field_update().
  */
 function plug_field_field_update($entity_type, $entity, $field, $instance, $langcode, &$items) {
-  if ($plugin = PlugFieldTypeManager::get()->createInstance($field['type'])) {
-    $plugin->update($entity_type, $entity, $field, $instance, $langcode, $items);
+  if ($plugin = PlugFieldTypeManager::get()->createInstance($field['type'], array(
+    'fieldDefinition' => new FieldDefinition($field),
+  ))) {
+    $plugin->update($entity_type, $entity, $instance, $langcode, $items);
   }
 }
 
@@ -165,8 +178,10 @@ function plug_field_field_update($entity_type, $entity, $field, $instance, $lang
  * Implements hook_field_delete().
  */
 function plug_field_field_delete($entity_type, $entity, $field, $instance, $langcode, $items) {
-  if ($plugin = PlugFieldTypeManager::get()->createInstance($field['type'])) {
-    $plugin->delete($entity_type, $entity, $field, $instance, $langcode, $items);
+  if ($plugin = PlugFieldTypeManager::get()->createInstance($field['type'], array(
+    'fieldDefinition' => new FieldDefinition($field),
+  ))) {
+    $plugin->delete($entity_type, $entity, $instance, $langcode, $items);
   }
 }
 
@@ -174,8 +189,10 @@ function plug_field_field_delete($entity_type, $entity, $field, $instance, $lang
  * Implements hook_field_delete_revision().
  */
 function plug_field_field_delete_revision($entity_type, $entity, $field, $instance, $langcode, &$items) {
-  if ($plugin = PlugFieldTypeManager::get()->createInstance($field['type'])) {
-    $plugin->deleteRevision($entity_type, $entity, $field, $instance, $langcode, $items);
+  if ($plugin = PlugFieldTypeManager::get()->createInstance($field['type'], array(
+    'fieldDefinition' => new FieldDefinition($field),
+  ))) {
+    $plugin->deleteRevision($entity_type, $entity, $instance, $langcode, $items);
   }
 }
 
@@ -183,8 +200,10 @@ function plug_field_field_delete_revision($entity_type, $entity, $field, $instan
  * Implements hook_field_prepare_translation().
  */
 function plug_field_field_prepare_translation($entity_type, $entity, $field, $instance, $langcode, &$items, $source_entity, $source_langcode) {
-  if ($plugin = PlugFieldTypeManager::get()->createInstance($field['type'])) {
-    $plugin->prepareTranslation($entity_type, $entity, $field, $instance, $langcode, $items, $source_entity, $source_langcode);
+  if ($plugin = PlugFieldTypeManager::get()->createInstance($field['type'], array(
+    'fieldDefinition' => new FieldDefinition($field),
+  ))) {
+    $plugin->prepareTranslation($entity_type, $entity, $instance, $langcode, $items, $source_entity, $source_langcode);
   }
 }
 
@@ -192,8 +211,10 @@ function plug_field_field_prepare_translation($entity_type, $entity, $field, $in
  * Implements hook_field_is_empty().
  */
 function plug_field_field_is_empty($item, $field) {
-  if ($plugin = PlugFieldTypeManager::get()->createInstance($field['type'])) {
-    return $plugin->isEmpty($item, $field);
+  if ($plugin = PlugFieldTypeManager::get()->createInstance($field['type'], array(
+    'fieldDefinition' => new FieldDefinition($field),
+  ))) {
+    return $plugin->isEmpty($item);
   }
 }
 
@@ -201,8 +222,10 @@ function plug_field_field_is_empty($item, $field) {
  * Implements hook_field_settings_form().
  */
 function plug_field_field_settings_form($field, $instance, $has_data) {
-  if ($plugin = PlugFieldTypeManager::get()->createInstance($field['type'])) {
-    return $plugin->settingsForm($field, $instance, $has_data);
+  if ($plugin = PlugFieldTypeManager::get()->createInstance($field['type'], array(
+    'fieldDefinition' => new FieldDefinition($field),
+  ))) {
+    return $plugin->settingsForm($instance, $has_data);
   }
 }
 
@@ -210,7 +233,9 @@ function plug_field_field_settings_form($field, $instance, $has_data) {
  * Implements hook_field_instance_settings_form().
  */
 function plug_field_field_instance_settings_form($field, $instance) {
-  if ($plugin = PlugFieldTypeManager::get()->createInstance($field['type'])) {
-    return $plugin->instanceSettingsForm($field, $instance);
+  if ($plugin = PlugFieldTypeManager::get()->createInstance($field['type'], array(
+    'fieldDefinition' => new FieldDefinition($field),
+  ))) {
+    return $plugin->instanceSettingsForm($instance);
   }
 }
