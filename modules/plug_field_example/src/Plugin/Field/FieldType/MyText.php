@@ -44,12 +44,12 @@ class MyText extends FieldTypeBase {
   /**
    * {@inheritdoc}
    */
-  public function schema($field) {
+  public function schema() {
     return array(
       'columns' => array(
         'value' => array(
           'type' => 'varchar',
-          'length' => $field['settings']['max_length'],
+          'length' => $this->getFieldDefinition()->getSetting('max_length'),
           'not null' => FALSE,
         ),
         'format' => array(
@@ -73,7 +73,7 @@ class MyText extends FieldTypeBase {
   /**
    * {@inheritdoc}
    */
-  public function load($entity_type, $entities, $field, $instances, $langcode, &$items, $age) {
+  public function load($entity_type, $entities, $instances, $langcode, &$items, $age) {
     foreach ($entities as $id => $entity) {
       foreach ($items[$id] as $delta => $item) {
         // Only process items with a cacheable format, the rest will be handled
@@ -88,12 +88,14 @@ class MyText extends FieldTypeBase {
   /**
    * {@inheritdoc}
    */
-  public function validate($entity_type, $entity, $field, $instance, $langcode, $items, &$errors) {
+  public function validate($entity_type, $entity, $instance, $langcode, $items, &$errors) {
+    $max_length = $this->getFieldDefinition()->getSetting('max_length');
+    $field_name =  $this->getFieldDefinition()->get('field_name');
     foreach ($items as $delta => $item) {
-      if (!empty($item['value']) && !empty($field['settings']['max_length']) && drupal_strlen($item['value']) > $field['settings']['max_length']) {
-        $errors[$field['field_name']][$langcode][$delta][] = array(
+      if (!empty($item['value']) && !empty($max_length) && drupal_strlen($item['value']) > $max_length) {
+        $errors[$field_name][$langcode][$delta][] = array(
           'error' => "text_value_length",
-          'message' => t('%name: the text may not be longer than %max characters.', array('%name' => $instance['label'], '%max' => $field['settings']['max_length'])),
+          'message' => t('%name: the text may not be longer than %max characters.', array('%name' => $instance['label'], '%max' => $max_length)),
         );
       }
     }
@@ -102,21 +104,20 @@ class MyText extends FieldTypeBase {
   /**
    * {@inheritdoc}
    */
-  public function isEmpty($item, $field) {
+  public function isEmpty($item) {
     return !isset($item['value']) || $item['value'] === '';
   }
 
   /**
    * {@inheritdoc}
    */
-  public function settingsForm($field, $instance, $has_data) {
-    $settings = $field['settings'];
+  public function settingsForm($instance, $has_data) {
     $form = array();
 
     $form['max_length'] = array(
       '#type' => 'textfield',
       '#title' => t('Maximum length'),
-      '#default_value' => $settings['max_length'],
+      '#default_value' => $this->getFieldDefinition()->getSetting('max_length'),
       '#required' => TRUE,
       '#description' => t('The maximum length of the field in characters.'),
       '#element_validate' => array('element_validate_integer_positive'),
@@ -129,14 +130,13 @@ class MyText extends FieldTypeBase {
   /**
    * {@inheritdoc}
    */
-  public function instanceSettingsForm($field, $instance) {
-    $settings = $instance['settings'];
+  public function instanceSettingsForm($instance) {
     $form = array();
 
     $form['text_processing'] = array(
       '#type' => 'radios',
       '#title' => t('Text processing'),
-      '#default_value' => $settings['text_processing'],
+      '#default_value' => $instance['settings']['text_processing'],
       '#options' => array(
         t('Plain text'),
         t('Filtered text (user selects text format)'),

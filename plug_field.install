@@ -5,6 +5,7 @@
  * Install hooks implementation.
  */
 
+use \Drupal\plug_field\FieldDefinition;
 use \Drupal\plug_field\PlugFieldTypeManager;
 
 /**
@@ -18,5 +19,7 @@ function plug_field_enable() {
  * Implements hook_field_schema().
  */
 function plug_field_field_schema($field) {
-  return PlugFieldTypeManager::get()->createInstance($field['type'])->schema($field);
+  return PlugFieldTypeManager::get()->createInstance($field['type'], array(
+    'fieldDefinition' => new FieldDefinition($field),
+  ))->schema($field);
 }

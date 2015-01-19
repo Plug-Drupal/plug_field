@@ -8,8 +8,11 @@
 namespace Drupal\plug_widget;
 
 use Drupal\plug_field\PlugFieldManagerBase;
+use Drupal\plug_field\PluginDefinitionsTrait;
 
 class PlugFieldWidgetManager extends PlugFieldManagerBase {
+
+  use PluginDefinitionsTrait;
 
   /**
    * Constructs PlugFieldWidgetManager.
@@ -24,20 +27,6 @@ class PlugFieldWidgetManager extends PlugFieldManagerBase {
     parent::__construct('Plugin/Field/FieldWidget', $namespaces, 'Drupal\plug_widget\Plugin\Field\FieldWidget\FieldWidgetInterface', '\Drupal\plug_widget\Annotation\FieldWidget');
     $this->setCacheBackend($cache_backend, 'field_widget_plugins');
     $this->alterInfo('field_widget_plugin');
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function findDefinitions() {
-    // Convert "field_types" key to "field types", given that annotations don't
-    // allow spaces and add default settings.
-    return array_map(function($definition) {
-      $definition['field types'] = $definition['field_types'];
-      unset($definition['field_types']);
-      $definition['settings'] = call_user_func_array(array($definition['class'], 'defaultSettings'), array());
-      return $definition;
-    }, parent::findDefinitions());
   }
 
 }

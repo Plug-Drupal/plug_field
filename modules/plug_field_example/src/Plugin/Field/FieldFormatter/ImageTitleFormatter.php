@@ -16,10 +16,6 @@ use Drupal\plug_formatter\Plugin\Field\FieldFormatter\FieldFormatterBase;
  *   label = "Image with title",
  *   field_types = {
  *     "image"
- *   },
- *   settings = {
- *     "image_style" = "",
- *     "image_link" = ""
  *   }
  * )
  */
@@ -28,9 +24,19 @@ class ImageTitleFormatter extends FieldFormatterBase {
   /**
    * {@inheritdoc}
    */
-  public function settingsForm($field, $instance, $view_mode, $form, &$form_state) {
-    $display = $instance['display'][$view_mode];
-    $settings = $display['settings'];
+  public static function defaultSettings() {
+    return array(
+      'image_style' => '',
+      'image_link' => '',
+    );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function settingsForm($view_mode, $form, &$form_state) {
+    $display = $this->getFieldInstanceDefinition()->get('display');
+    $settings = $display[$view_mode]['settings'];
     $element = array();
 
     $image_styles = image_style_options(FALSE, PASS_THROUGH);
@@ -59,9 +65,9 @@ class ImageTitleFormatter extends FieldFormatterBase {
   /**
    * {@inheritdoc}
    */
-  public function settingsSummary($field, $instance, $view_mode) {
-    $display = $instance['display'][$view_mode];
-    $settings = $display['settings'];
+  public function settingsSummary($view_mode) {
+    $display = $this->getFieldInstanceDefinition()->get('display');
+    $settings = $display[$view_mode]['settings'];
     $summary = array();
 
     $image_styles = image_style_options(FALSE, PASS_THROUGH);
@@ -91,7 +97,7 @@ class ImageTitleFormatter extends FieldFormatterBase {
   /**
    * {@inheritdoc}
    */
-  public function viewElements($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  public function viewElements($entity_type, $entity, $langcode, $items, $display) {
     $element = array();
     // Check if the formatter involves a link.
     if ($display['settings']['image_link'] == 'content') {

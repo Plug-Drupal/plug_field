@@ -7,52 +7,61 @@
 
 namespace Drupal\plug_field\Plugin\Field\FieldType;
 
-abstract class FieldTypeBase implements FieldTypeInterface {
+use Drupal\Component\Plugin\PluginBase;
+
+abstract class FieldTypeBase extends PluginBase implements FieldTypeInterface {
 
   /**
    * {@inheritdoc}
    */
-  public function load($entity_type, $entities, $field, $instances, $langcode, &$items, $age) { }
+  public function getFieldDefinition() {
+    return $this->configuration['fieldDefinition'];
+  }
+  
+  /**
+   * {@inheritdoc}
+   */
+  public function load($entity_type, $entities, $instances, $langcode, &$items, $age) { }
 
   /**
    * {@inheritdoc}
    */
-  public function prepareView($entity_type, $entities, $field, $instances, $langcode, &$items) { }
+  public function prepareView($entity_type, $entities, $instances, $langcode, &$items) { }
 
   /**
    * {@inheritdoc}
    */
-  public function validate($entity_type, $entity, $field, $instance, $langcode, $items, &$errors) { }
+  public function validate($entity_type, $entity, $instance, $langcode, $items, &$errors) { }
 
   /**
    * {@inheritdoc}
    */
-  public function preSave($entity_type, $entity, $field, $instance, $langcode, &$items) { }
+  public function preSave($entity_type, $entity, $instance, $langcode, &$items) { }
 
   /**
    * {@inheritdoc}
    */
-  public function insert($entity_type, $entity, $field, $instance, $langcode, &$items) { }
+  public function insert($entity_type, $entity, $instance, $langcode, &$items) { }
 
   /**
    * {@inheritdoc}
    */
-  public function update($entity_type, $entity, $field, $instance, $langcode, &$items) { }
+  public function update($entity_type, $entity, $instance, $langcode, &$items) { }
 
   /**
    * {@inheritdoc}
    */
-  public function delete($entity_type, $entity, $field, $instance, $langcode, &$items) { }
+  public function delete($entity_type, $entity, $instance, $langcode, &$items) { }
 
   /**
    * {@inheritdoc}
    */
-  public function deleteRevision($entity_type, $entity, $field, $instance, $langcode, &$items) { }
+  public function deleteRevision($entity_type, $entity, $instance, $langcode, &$items) { }
 
   /**
    * {@inheritdoc}
    */
-  public function prepareTranslation($entity_type, $entity, $field, $instance, $langcode, &$items, $source_entity, $source_langcode) { }
+  public function prepareTranslation($entity_type, $entity, $instance, $langcode, &$items, $source_entity, $source_langcode) { }
 
   /**
    * {@inheritdoc}
@@ -64,7 +73,7 @@ abstract class FieldTypeBase implements FieldTypeInterface {
   /**
    * {@inheritdoc}
    */
-  public function settingsForm($field, $instance, $has_data) {
+  public function settingsForm($instance, $has_data) {
     return array();
   }
 
@@ -78,7 +87,7 @@ abstract class FieldTypeBase implements FieldTypeInterface {
   /**
    * {@inheritdoc}
    */
-  public function instanceSettingsForm($field, $instance) {
+  public function instanceSettingsForm($instance) {
     return array();
   }
 

@@ -7,6 +7,7 @@
 
 namespace Drupal\plug_widget\Plugin\Field\FieldWidget;
 
+
 interface FieldWidgetInterface {
 
   /**
@@ -19,6 +20,41 @@ interface FieldWidgetInterface {
    *   The widget type default settings.
    */
   public static function defaultSettings();
+
+  /**
+   * Gets the field type definition object.
+   *
+   * @return \Drupal\plug_field\FieldDefinitionInterface.
+   *   The field type definition object.
+   */
+  public function getFieldDefinition();
+
+  /**
+   * Gets the field instance definition object.
+   *
+   * @return \Drupal\plug_field\FieldInstanceDefinitionInterface.
+   *   The field instance definition object.
+   */
+  public function getFieldInstanceDefinition();
+
+  /**
+   * Gets the Widget settings array.
+   *
+   * @return array
+   *   The Widget settings array.
+   */
+  public function getSettings();
+
+  /**
+   * Gets a specific Widget setting.
+   *
+   * @param string
+   *   The required setting name
+   *
+   * @return mixed|null
+   *   The required setting value, NULL if it is not defined.
+   */
+  public function getSetting($setting_name);
 
   /**
    * Return the form for a single field widget.
@@ -57,10 +93,6 @@ interface FieldWidgetInterface {
    *   full form structure, or a sub-element of a larger form.
    * @param $form_state
    *   An associative array containing the current state of the form.
-   * @param $field
-   *   The field structure.
-   * @param $instance
-   *   The field instance.
    * @param $langcode
    *   The language associated with $items.
    * @param $items
@@ -98,7 +130,7 @@ interface FieldWidgetInterface {
    * @see hook_field_widget_form_alter()
    * @see hook_field_widget_WIDGET_TYPE_form_alter()
    */
-  public function widgetForm(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element);
+  public function widgetForm(&$form, &$form_state, $langcode, $items, $delta, $element);
 
   /**
    * Add settings to a widget settings form.
@@ -106,14 +138,9 @@ interface FieldWidgetInterface {
    * Invoked from field_ui_field_edit_form() to allow the module defining the
    * widget to add settings for a widget instance.
    *
-   * @param $field
-   *   The field structure being configured.
-   * @param $instance
-   *   The instance structure being configured.
-   *
    * @return
    *   The form definition for the widget settings.
    */
-  public function settingsForm($field, $instance);
+  public function settingsForm();
 
 }

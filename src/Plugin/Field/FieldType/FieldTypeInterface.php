@@ -10,6 +10,14 @@ namespace Drupal\plug_field\Plugin\Field\FieldType;
 interface FieldTypeInterface {
 
   /**
+   * Gets the field type definition object.
+   *
+   * @return \Drupal\plug_field\FieldDefinitionInterface.
+   *   The field type definition object.
+   */
+  public function getFieldDefinition();
+
+  /**
    * Define the Field API schema for a field structure.
    *
    * This is invoked when a field is created, in order to obtain the database
@@ -17,9 +25,6 @@ interface FieldTypeInterface {
    *
    * This hook must be defined in the module's .install file for it to be detected
    * during installation and upgrade.
-   *
-   * @param $field
-   *   A field structure.
    *
    * @return
    *   An associative array with the following keys:
@@ -40,7 +45,7 @@ interface FieldTypeInterface {
    *   - foreign keys: (optional) An array of Schema API foreign keys
    *     definitions.
    */
-  public function schema($field);
+  public function schema();
 
   /**
    * Define custom load behavior for this module's field types.
@@ -63,8 +68,6 @@ interface FieldTypeInterface {
    *   The type of $entity.
    * @param $entities
    *   Array of entities being loaded, keyed by entity ID.
-   * @param $field
-   *   The field structure for the operation.
    * @param $instances
    *   Array of instance structures for $field for each entity, keyed by entity
    *   ID.
@@ -77,7 +80,7 @@ interface FieldTypeInterface {
    *   FIELD_LOAD_CURRENT to load the most recent revision for all fields, or
    *   FIELD_LOAD_REVISION to load the version indicated by each entity.
    */
-  public function load($entity_type, $entities, $field, $instances, $langcode, &$items, $age);
+  public function load($entity_type, $entities, $instances, $langcode, &$items, $age);
 
   /**
    * Prepare field values prior to display.
@@ -98,8 +101,6 @@ interface FieldTypeInterface {
    *   The type of $entity.
    * @param $entities
    *   Array of entities being displayed, keyed by entity ID.
-   * @param $field
-   *   The field structure for the operation.
    * @param $instances
    *   Array of instance structures for $field for each entity, keyed by entity
    *   ID.
@@ -108,7 +109,7 @@ interface FieldTypeInterface {
    * @param $items
    *   $entity->{$field['field_name']}, or an empty array if unset.
    */
-  public function prepareView($entity_type, $entities, $field, $instances, $langcode, &$items);
+  public function prepareView($entity_type, $entities, $instances, $langcode, &$items);
 
   /**
    * Validate this module's field data.
@@ -120,8 +121,6 @@ interface FieldTypeInterface {
    *   The type of $entity.
    * @param $entity
    *   The entity for the operation.
-   * @param $field
-   *   The field structure for the operation.
    * @param $instance
    *   The instance structure for $field on $entity's bundle.
    * @param $langcode
@@ -136,7 +135,7 @@ interface FieldTypeInterface {
    *   - error: An error code (should be a string prefixed with the module name).
    *   - message: The human readable message to be displayed.
    */
-  public function validate($entity_type, $entity, $field, $instance, $langcode, $items, &$errors);
+  public function validate($entity_type, $entity, $instance, $langcode, $items, &$errors);
 
   /**
    * Define custom presave behavior for this module's field types.
@@ -148,8 +147,6 @@ interface FieldTypeInterface {
    *   The type of $entity.
    * @param $entity
    *   The entity for the operation.
-   * @param $field
-   *   The field structure for the operation.
    * @param $instance
    *   The instance structure for $field on $entity's bundle.
    * @param $langcode
@@ -157,7 +154,7 @@ interface FieldTypeInterface {
    * @param $items
    *   $entity->{$field['field_name']}[$langcode], or an empty array if unset.
    */
-  public function preSave($entity_type, $entity, $field, $instance, $langcode, &$items);
+  public function preSave($entity_type, $entity, $instance, $langcode, &$items);
 
   /**
    * Define custom insert behavior for this module's field data.
@@ -173,8 +170,6 @@ interface FieldTypeInterface {
    *   The type of $entity.
    * @param $entity
    *   The entity for the operation.
-   * @param $field
-   *   The field structure for the operation.
    * @param $instance
    *   The instance structure for $field on $entity's bundle.
    * @param $langcode
@@ -185,7 +180,7 @@ interface FieldTypeInterface {
    * @see hook_field_update()
    * @see hook_field_delete()
    */
-  public function insert($entity_type, $entity, $field, $instance, $langcode, &$items);
+  public function insert($entity_type, $entity, $instance, $langcode, &$items);
 
   /**
    * Define custom update behavior for this module's field data.
@@ -201,8 +196,6 @@ interface FieldTypeInterface {
    *   The type of $entity.
    * @param $entity
    *   The entity for the operation.
-   * @param $field
-   *   The field structure for the operation.
    * @param $instance
    *   The instance structure for $field on $entity's bundle.
    * @param $langcode
@@ -213,7 +206,7 @@ interface FieldTypeInterface {
    * @see hook_field_insert()
    * @see hook_field_delete()
    */
-  public function update($entity_type, $entity, $field, $instance, $langcode, &$items);
+  public function update($entity_type, $entity, $instance, $langcode, &$items);
 
   /**
    * Define custom delete behavior for this module's field data.
@@ -229,8 +222,6 @@ interface FieldTypeInterface {
    *   The type of $entity.
    * @param $entity
    *   The entity for the operation.
-   * @param $field
-   *   The field structure for the operation.
    * @param $instance
    *   The instance structure for $field on $entity's bundle.
    * @param $langcode
@@ -241,7 +232,7 @@ interface FieldTypeInterface {
    * @see hook_field_insert()
    * @see hook_field_update()
    */
-  public function delete($entity_type, $entity, $field, $instance, $langcode, &$items);
+  public function delete($entity_type, $entity, $instance, $langcode, &$items);
 
   /**
    * Define custom revision delete behavior for this module's field types.
@@ -254,8 +245,6 @@ interface FieldTypeInterface {
    *   The type of $entity.
    * @param $entity
    *   The entity for the operation.
-   * @param $field
-   *   The field structure for the operation.
    * @param $instance
    *   The instance structure for $field on $entity's bundle.
    * @param $langcode
@@ -263,7 +252,7 @@ interface FieldTypeInterface {
    * @param $items
    *   $entity->{$field['field_name']}[$langcode], or an empty array if unset.
    */
-  public function deleteRevision($entity_type, $entity, $field, $instance, $langcode, &$items);
+  public function deleteRevision($entity_type, $entity, $instance, $langcode, &$items);
 
   /**
    * Define custom prepare_translation behavior for this module's field types.
@@ -272,8 +261,6 @@ interface FieldTypeInterface {
    *   The type of $entity.
    * @param $entity
    *   The entity for the operation.
-   * @param $field
-   *   The field structure for the operation.
    * @param $instance
    *   The instance structure for $field on $entity's bundle.
    * @param $langcode
@@ -287,21 +274,19 @@ interface FieldTypeInterface {
    *
    * @ingroup field_language
    */
-  public function prepareTranslation($entity_type, $entity, $field, $instance, $langcode, &$items, $source_entity, $source_langcode);
+  public function prepareTranslation($entity_type, $entity, $instance, $langcode, &$items, $source_entity, $source_langcode);
 
   /**
    * Define what constitutes an empty item for a field type.
    *
    * @param $item
    *   An item that may or may not be empty.
-   * @param $field
-   *   The field to which $item belongs.
    *
    * @return
    *   TRUE if $field's type considers $item not to contain any data;
    *   FALSE otherwise.
    */
-  public function isEmpty($item, $field);
+  public function isEmpty($item);
 
   /**
    * Array containing the field type default settings.
@@ -329,8 +314,6 @@ interface FieldTypeInterface {
    * will be allowed without having to build up a fake $prior_field structure
    * for hook_field_update_forbid().
    *
-   * @param $field
-   *   The field structure being configured.
    * @param $instance
    *   The instance structure being configured.
    * @param $has_data
@@ -339,7 +322,7 @@ interface FieldTypeInterface {
    * @return
    *   The form definition for the field settings.
    */
-  public function settingsForm($field, $instance, $has_data);
+  public function settingsForm($instance, $has_data);
 
   /**
    * Array containing the field instance default settings.
@@ -364,14 +347,12 @@ interface FieldTypeInterface {
    * Invoked from field_ui_field_edit_form() to allow the module defining the
    * field to add settings for a field instance.
    *
-   * @param $field
-   *   The field structure being configured.
    * @param $instance
    *   The instance structure being configured.
    *
    * @return
    *   The form definition for the field instance settings.
    */
-  public function instanceSettingsForm($field, $instance);
+  public function instanceSettingsForm($instance);
 
 }
