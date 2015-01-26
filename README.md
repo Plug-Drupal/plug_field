@@ -12,7 +12,3 @@ Forget about copy & paste code and start to use real OOP and its advantages in y
 This would not have been possible without the amazing job done in [Plug](https://github.com/mateu-aguilo-bosch/plug) by [Mateu Aguiló](https://www.drupal.org/u/e0ipso).
 
 This module requires all the awesomeness implemented there.
-
-## Other dependencies
-This module depends on the patch for [composer_manager](https://www.drupal.org/project/composer_manager) module provided in this [issue](https://www.drupal.org/node/2403317).
-
