@@ -7,10 +7,10 @@
 
 namespace Drupal\plug_formatter;
 
-use Drupal\Core\Plugin\DefaultPluginManager;
+use Drupal\plug_field\PlugFieldManagerBase;
 use Drupal\plug_field\PluginDefinitionsTrait;
 
-class PlugFieldFormatterManager extends DefaultPluginManager {
+class PlugFieldFormatterManager extends PlugFieldManagerBase {
 
   use PluginDefinitionsTrait;
 

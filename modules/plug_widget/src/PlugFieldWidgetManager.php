@@ -7,10 +7,10 @@
 
 namespace Drupal\plug_widget;
 
-use Drupal\Core\Plugin\DefaultPluginManager;
+use Drupal\plug_field\PlugFieldManagerBase;
 use Drupal\plug_field\PluginDefinitionsTrait;
 
-class PlugFieldWidgetManager extends DefaultPluginManager {
+class PlugFieldWidgetManager extends PlugFieldManagerBase {
 
   use PluginDefinitionsTrait;
 
