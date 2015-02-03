@@ -7,9 +7,7 @@
 
 namespace Drupal\plug_field;
 
-use Drupal\Core\Plugin\DefaultPluginManager;
-
-class PlugFieldTypeManager extends DefaultPluginManager {
+class PlugFieldTypeManager extends PlugFieldManagerBase {
 
   /**
    * Constructs PlugFieldTypeManager.
