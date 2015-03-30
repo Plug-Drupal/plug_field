@@ -13,8 +13,8 @@ class PlugFieldExampleTest extends FieldUITestCase {
 
   public static function getInfo() {
     return array(
-      'name'  => 'Plug Field Example Text field',
-      'description'  => "Test the creation of Plugin Field types.",
+      'name' => 'Plug Field Example Text field',
+      'description' => "Test the creation of Plugin Field types.",
       'group' => 'Plug Field',
     );
   }
